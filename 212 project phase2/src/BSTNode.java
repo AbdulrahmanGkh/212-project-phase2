@@ -1,21 +1,62 @@
-public class BSTNode<T> {  
-    public int key;  
-    public T data;  
-    public BSTNode<T> left,right;  
-  
-    //node without left right  
-    public BSTNode(int k,T val) {  
-        key=k;  
-        data=val;  
-        left=right=null;  
+public class BST<T> {  
+BSTNode<T> root, current;  
+      
+    /** Creates a new instance of BST */  
+    public BST() {  
+        root = current = null;  
+    }  
+      
+    public boolean empty() {  
+        return root == null;  
+    }  
+      
+    public boolean full() {  
+        return false;  
+    }  
+      
+    public T retrieve () {  
+        return current.data;  
     }  
   
-    //node with left right  
+    public boolean findkey(int tkey) {  
+        BSTNode<T> p=root , q=root;;  
+          
+        if(empty())  
+            return false;  
+          
+        while(p!=null) {  
+            q=p;  
+            if(p.key==tkey) {  
+                current=p;  
+                return true;  
+            }  
+            else if(tkey<p.key)  
+                p=p.left;  
+            else  
+                p=p.right;  
+        }  
+        current=q;  
+        return false;  
+    }  
+    public boolean insert(int k , T val) {  
+        BSTNode<T> p,q=current;  
   
-    public BSTNode(int k,T val, BSTNode<T> l, BSTNode<T> r) {  
-        key=k;  
-        data=val;  
-        left=l;  
-        right=r;  
+        if(findkey(k)) {  
+            current=q;  
+            return false;  
+        }  
+        p=new BSTNode<T>(k,val);  
+          
+if(empty()) {  
+    root=current=p;  
+    return true;  
+}else {  
+    if(k<current.key)  
+        current.left=p;  
+    else  
+        current.right=p;  
+}  
+current=p;  
+return true;  
     }  
 }  
