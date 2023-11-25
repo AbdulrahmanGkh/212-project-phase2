@@ -3,9 +3,9 @@ public class Event_  implements Comparable<Event_>{
 	public String eventTitle;
 	public String DateAndTime;
 	public String location;
-	public Contact_ contact;
 	public boolean appointment;
-	
+	public EventList<Contact_> listContact;
+
 	public Event_() {
 		this.eventTitle=null;
 		this.DateAndTime=null;
@@ -17,7 +17,7 @@ public class Event_  implements Comparable<Event_>{
 		this.DateAndTime=DateAndTime;
 		this.location = location;
 		this.appointment=appointment;
-		this.contact=contact;
+		listContact=new EventList<Contact_>();
 	}
 
 	public int compareTo(Event_ event)throws NullPointerException  {
@@ -55,11 +55,14 @@ public class Event_  implements Comparable<Event_>{
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Contact_ getContact() {
-		return contact;
+
+	public boolean isAppointment() {
+		return appointment;
 	}
-	public void setContact(Contact_ contact) {
-		this.contact = contact;
+
+	public void setAppointment(boolean appointment) {
+		this.appointment = appointment;
 	}
+	
 
 }
