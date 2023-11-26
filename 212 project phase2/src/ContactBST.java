@@ -67,8 +67,19 @@ public class ContactBST<T> {
     public NodeBST<T> findMin(){}
     public NodeBST<T> findRoot(){}
     public void findByFirstName(){}
-    public Contact_ searchName() {}
-    public Contact_ serachPhoneNumber() {}
+     public Contact_ searchName(String name) {
+    	if(findkey(name)) {
+    		return current.getData();
+    	}else
+    		return null;
+    }
+    public Contact_ serachPhoneNumber(String phoneNumber) {
+    	if(findkey(phoneNumber)) {
+    		return current.getData();
+    	}else
+    		return null;
+    		
+    }
     public void searchAddress() {}
     public void searchEmailAddress() {}
     public void serachBirthday() {}
