@@ -39,6 +39,18 @@ public class Contact_ implements Comparable<Contact_>{
 		 else
 			 return 1;// this means otherPerson>this.name
 		 }
+		public int compareToEmail(String otherEmail)throws NullPointerException {//bigO(n) this method compare two strings
+		 return(this.emailAddress.compareTo(otherEmail));// 
+	}
+	 public int compareToAddress(String otheraddress) {  
+	         
+	            return (this.address.compareToIgnoreCase(otheraddress));  
+	        }  
+	 public int compareToBirthday(String otherbirthday) {  
+	         
+	            return (this.birthday.compareTo(birthday) ) ;  
+	        }  
+	        
 	}
 	//setters and getters
 	public String getName(){
