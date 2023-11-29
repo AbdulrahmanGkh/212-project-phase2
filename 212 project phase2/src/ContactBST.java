@@ -73,8 +73,43 @@ public class ContactBST<T> {
     public Contact_ serachPhoneNumber() {
     	
     }
-    public void searchAddress() {}
-    public void searchEmailAddress() {}
-    public void serachBirthday() {}
+    public void searchAddress(String address) {
+    	SearchAddress_rec(root, address);
+    }
+    private void SearchAddress_rec (NodeBST<T> p , String address) {
+    	 if (p == null)  
+             return ;  
+         else if (((Contact_)p.data).compareToAddress(address) == 0)  
+             System.out.println(p.data);  
+           
+         SearchAddress_rec(p.left , address);  
+         SearchAddress_rec(p.right, address);  
+    }
+    public void searchEmail(String email) {
+    	SearchEmail_rec(root,email);
+    }
+    private void SearchEmail_rec(NodeBST<T> p , String email) {
+    	if (p == null)  
+            return;  
+          
+        else if (((Contact_)p.data).compareToEmail(email) == 0)  
+            System.out.println(p.data);  
+          
+        SearchEmail_rec(p.left , email);  
+        SearchEmail_rec(p.right, email);  
+    }
+    public void serachBirthday(String birthday) {
+    	SearchBirthday_rec(root, birthday);
+    }
+    private void SearchBirthday_rec(NodeBST<T> p , String birthday) {
+    	 if (p == null)  
+             return ;  
+         else    if (((Contact_)p.data).compareToBirthday(birthday) == 0)  
+             System.out.println(p.data);  
+           
+         SearchBirthday_rec(p.left , birthday);  
+         SearchBirthday_rec(p.right, birthday);  
+    	
+    }
     public void printByOrder() {} // not sure about this method
     }
