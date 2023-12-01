@@ -62,17 +62,110 @@ public class ContactBST<T> {
         current=p;  
         return true;  
     } 
-    public boolean removeKey() {}
-    public NodeBST<T> remove(){}
-    public NodeBST<T> findMin(){}
-    public NodeBST<T> findRoot(){}
-    public void findByFirstName(){}
-     public Contact_ searchName() {
+    public boolean removeKey(String key, EventList<Event_> e) {
+    	
+    	Boolean removed = false;
+    	NodeBST<T> p;
+		p = remove(key, root, removed);
+		current = root = p;
+		e.removeEvent(key);
+		
+		return removed;
+
     	
     }
-    public Contact_ serachPhoneNumber() {
+    public NodeBST<T> remove(String key , NodeBST<T> p, boolean flag){
+    	
+    	NodeBST<T> q, child = null;
+		if(p == null)
+			return null;
+		if(key.compareTo(p.key) < 0)
+			p.left = remove(key, p.left, flag); //go left
+		else if(key.compareTo(p.key) > 0)
+			p.right = remove(key, p.right, flag); //go right
+		else { // key is found
+			flag= true;
+			if (p.left != null && p.right != null){ //two children
+				q = findMin(p.right);
+				p.key = q.key;
+				p.data = q.data;
+				p.right = remove(q.key, p.right, flag);
+			}
+			else {
+				if (p.right == null) //one child
+					child = p.left;
+				else if (p.left == null) //one child
+					child = p.right;
+				return child;
+			}
+		}
+		return p;
     	
     }
+    public NodeBST<T> findMin( NodeBST<T> p){
+    		if(p == null)
+    			return null;
+    		
+    		while(p.left != null){
+    			p = p.left;
+    		}
+    		
+    		return p;
+    }
+    public NodeBST<T> findRoot(ContactBST<T> B){
+    	
+    	NodeBST<T> p = B.root;
+		return p;
+    }
+  
+    public Contact_ searchName(String key) {
+    	
+    	NodeBST<T> p = root,q = root;
+		
+		if(empty())
+			return null;
+		
+		while(p != null) {
+			q = p;
+			if(p.key.equalsIgnoreCase(key)) {
+				current = p;
+				return current.data;
+			}
+			else if(key.compareTo(p.key) < 0 )
+				p = p.left;
+			else
+				p = p.right;
+		}
+		
+		current = q;
+		return null;
+
+    	
+    }
+    public Contact_ serachPhoneNumber(NodeBST<T> root,String phoneNumber) {
+    	
+  	  // Base case: if the node is null, value not found
+        if (root == null) {
+            return null;
+        }
+
+        // Check if the current node's value is equal to x
+        if (root.data.getPhoneNumber().equalsIgnoreCase(phoneNumber)) {
+            return root.data; // Value found, stop recursion
+        }
+
+        // Recursively search in the left subtree
+        Contact_ leftResult = serachPhoneNumber(root.left, phoneNumber);
+        if (leftResult!=null) {
+            return leftResult; // Value found in the left subtree, stop recursion
+        }
+
+        // Recursively search in the right subtree
+        return serachPhoneNumber(root.right, phoneNumber);
+
+    	
+    }
+    
     public void searchAddress(String address) {
     	SearchAddress_rec(root, address);
     }
@@ -81,7 +174,7 @@ public class ContactBST<T> {
              return ;  
          else if (((Contact_)p.data).compareToAddress(address) == 0)  
              System.out.println(p.data);  
-           
+
          SearchAddress_rec(p.left , address);  
          SearchAddress_rec(p.right, address);  
     }
@@ -91,10 +184,10 @@ public class ContactBST<T> {
     private void SearchEmail_rec(NodeBST<T> p , String email) {
     	if (p == null)  
             return;  
-          
+
         else if (((Contact_)p.data).compareToEmail(email) == 0)  
             System.out.println(p.data);  
-          
+
         SearchEmail_rec(p.left , email);  
         SearchEmail_rec(p.right, email);  
     }
@@ -106,10 +199,11 @@ public class ContactBST<T> {
              return ;  
          else    if (((Contact_)p.data).compareToBirthday(birthday) == 0)  
              System.out.println(p.data);  
-           
+
          SearchBirthday_rec(p.left , birthday);  
          SearchBirthday_rec(p.right, birthday);  
-    	
+
     }
     public void printByOrder() {} // not sure about this method
+    public void findByFirstName(){}
     }
