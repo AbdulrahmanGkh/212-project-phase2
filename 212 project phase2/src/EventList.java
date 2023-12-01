@@ -85,7 +85,8 @@ public class EventList<T> {
 			NodeList<T> tmp = head;
 			head = new NodeList<T>(x);
 			head.next = tmp;
-		}  else {
+		} 
+		else {
 			while (current.next != null && x.compareTo(current.next.data) > 0)
 				current = current.next; // the name goes to its alphabetical place
 			NodeList<T> tmp = current.next;
