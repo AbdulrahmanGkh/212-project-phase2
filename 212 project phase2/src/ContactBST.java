@@ -39,18 +39,19 @@ public class ContactBST<T> {
         current=q;  
         return false;  
     }  
-    public boolean insert(String name , String phoneNumber,String emailAddress,String address,String birthday,String notes) {  
+  /*  public boolean insert(String name , String phoneNumber,String emailAddress,String address,String birthday,String notes) {  
     	NodeBST<T> p,q=current; 
     	Contact_ c = new Contact_(name,phoneNumber,emailAddress,address,birthday,notes); // this method take a contact to store it in the list
   
         if(findkey(name)) {  // findKey(name,phonenumber)   check this
-            current=q;  
+            current=q;
             return false;  
         }  
         p=new NodeBST<T>(name,c);  
           
         if(empty()) {  
-        	root=current=p;  
+        	root=current=p; 
+        	System.out.println("Added succefully");
         	return true;  
         }	else 	{  
         	if(name.compareTo(current.key) < 0)  
@@ -58,9 +59,42 @@ public class ContactBST<T> {
         	else	  
         		current.right=p;  
         }  
-        current=p;  
+        current=p; 
+        System.out.println("Added succefully");
         return true;  
-    } 
+    } */
+    
+    public boolean insert(String name, String phoneNumber, String emailAddress, String address, String birthday, String notes) {
+        Contact_ c = new Contact_(name, phoneNumber, emailAddress, address, birthday, notes);
+        NodeBST<T> newNode = new NodeBST<T>(name, c);
+        // Check if the BST is currently empty
+        if (empty()) {
+            root = newNode;
+            return true;
+        }
+     // Initialize parent and current pointers for traversing the tree
+        NodeBST<T> parent = null;
+        NodeBST<T> current = root;
+
+       
+        while (current != null) {
+            parent = current;
+            if (name.compareTo(current.key) < 0) // Compare the new contact's name with the current node's key
+                current = current.left;  // If name is smaller, move to the left subtree
+            else if (name.compareTo(current.key) > 0)  // If name is greater, move to the right subtree
+                current = current.right;
+             else 
+                return false; // If a duplicate key is found, return false as insertion is not allowed
+        }
+        if (name.compareTo(parent.key) < 0) {
+            parent.left = newNode;
+        } else {
+            parent.right = newNode;
+        }
+
+        return true;
+    }
+  
     public boolean removeKey(String key, EventList<Event_> e) {
     	
     	Boolean removed = false;
@@ -224,20 +258,53 @@ public class ContactBST<T> {
          SearchBirthday_rec(p.right, birthday);  
 
     }
-    public void printByOrder() {} // not sure about this method
-    private void searchFirstNameRec(NodeBST<T> root, String name) {
-        if (root != null) {
-            if (root.data.getName().split(" ")[0].equals(name)) {
-                // Display contact details
-            }
-            
-            // Continue searching in both left and right subtrees
-            searchFirstNameRec(root.left, name);
-            searchFirstNameRec(root.right, name);
+    public void printInOrder(NodeBST<T>root ) {
+    	
+    	if (root != null) {
+            // Traverse the left subtree
+            printInOrder(root.left);
+
+            // Print the current node's value
+            System.out.println(root.data.getName() + " ");
+
+            // Traverse the right subtree
+            printInOrder(root.right);
         }
+
+    	
+    } 
+
+    public void FirstName( String name) {
+        boolean exist = searchFirstName(root, name);
+        if (!exist)
+            System.out.println("There is no contact with the same first name");
     }
-    public void searchFirstName(String name) {
-        searchFirstNameRec(root, name);
+
+    private boolean searchFirstName(NodeBST<T> node, String name) {
+        if (node == null)
+            return false;
+
+        String nodeName = node.getData().getName();
+        String first[] = nodeName.split(" ");
+
+        boolean found = false;
+
+        if (first[0].equals(name)) {
+            // Found a contact with the same first name
+            System.out.println("Contacts found!");
+            System.out.println("Name: " + node.getData().getName());
+            System.out.println("Phone Number: " + node.getData().getPhoneNumber());
+            System.out.println("Email Address: " + node.getData().getEmailAddress());
+            System.out.println("Address: " + node.getData().getAddress());
+            System.out.println("Birthday: " + node.getData().getBirthday());
+            found = true;
+        }
+
+        // Continue searching in both subtrees
+        found = searchFirstName(node.getLeft(), name) || found;
+        found = searchFirstName(node.getRight(), name) || found;
+
+        return found;
     }
-    public void findByFirstName(){}
-    }
+
+ }
