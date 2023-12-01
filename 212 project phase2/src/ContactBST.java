@@ -1,4 +1,3 @@
-
 public class ContactBST<T> {
 	 NodeBST<T> root;
 	 NodeBST<T> current;
@@ -171,10 +170,16 @@ public class ContactBST<T> {
     }
     private void SearchAddress_rec (NodeBST<T> p , String address) {
     	 if (p == null)  
-             return ;  
-         else if (((Contact_)p.data).compareToAddress(address) == 0)  
-             System.out.println(p.data);  
-
+             return  ;  
+         else if (((Contact_)p.data).compareToAddress(address) == 0)  {
+         System.out.println("Contact found!");
+         System.out.println("Name:" +p.data.getName());
+    	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
+    	 System.out.println("Email Address: "+p.data.getEmailAddress());
+    	 System.out.println("Address: "+p.data.getAddress());
+    	 System.out.println("Birthday"+p.data.getBirthday());
+    	 System.out.println("Notes: " +p.data.getNotes());
+         }
          SearchAddress_rec(p.left , address);  
          SearchAddress_rec(p.right, address);  
     }
@@ -185,8 +190,15 @@ public class ContactBST<T> {
     	if (p == null)  
             return;  
 
-        else if (((Contact_)p.data).compareToEmail(email) == 0)  
-            System.out.println(p.data);  
+        else if (((Contact_)p.data).compareToEmail(email) == 0) {
+         System.out.println("Contact found!");
+         System.out.println("Name:" +p.data.getName());
+       	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
+       	 System.out.println("Email Address: "+p.data.getEmailAddress());
+       	 System.out.println("Address: "+p.data.getAddress());
+       	 System.out.println("Birthday"+p.data.getBirthday());
+       	 System.out.println("Notes: " +p.data.getNotes());
+            }  
 
         SearchEmail_rec(p.left , email);  
         SearchEmail_rec(p.right, email);  
@@ -198,12 +210,34 @@ public class ContactBST<T> {
     	 if (p == null)  
              return ;  
          else    if (((Contact_)p.data).compareToBirthday(birthday) == 0)  
-             System.out.println(p.data);  
+         {
+             System.out.println("Contact found!");
+             System.out.println("Name:" +p.data.getName());
+           	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
+           	 System.out.println("Email Address: "+p.data.getEmailAddress());
+           	 System.out.println("Address: "+p.data.getAddress());
+           	 System.out.println("Birthday"+p.data.getBirthday());
+           	 System.out.println("Notes: " +p.data.getNotes());
+                } 
 
          SearchBirthday_rec(p.left , birthday);  
          SearchBirthday_rec(p.right, birthday);  
 
     }
     public void printByOrder() {} // not sure about this method
+    private void searchFirstNameRec(NodeBST<T> root, String name) {
+        if (root != null) {
+            if (root.data.getName().split(" ")[0].equals(name)) {
+                // Display contact details
+            }
+            
+            // Continue searching in both left and right subtrees
+            searchFirstNameRec(root.left, name);
+            searchFirstNameRec(root.right, name);
+        }
+    }
+    public void searchFirstName(String name) {
+        searchFirstNameRec(root, name);
+    }
     public void findByFirstName(){}
     }
