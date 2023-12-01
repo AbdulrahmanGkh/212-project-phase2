@@ -12,7 +12,7 @@ public class Event_  implements Comparable<Event_>{
 		this.location=null;
 	}
 	
-	public Event_(String eventTitle, String DateAndTime, String location, Contact_ contact,boolean appointment) {
+	public Event_(String eventTitle, String DateAndTime, String location,boolean appointment) {
 		this.eventTitle = eventTitle;
 		this.DateAndTime=DateAndTime;
 		this.location = location;
