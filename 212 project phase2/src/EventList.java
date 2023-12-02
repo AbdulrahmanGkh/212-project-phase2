@@ -1,5 +1,5 @@
 
-public class EventList<T> {
+public class EventList<T>  {
 	public NodeList<T> head;
 	public NodeList<T> current;
 	
@@ -42,20 +42,19 @@ public class EventList<T> {
 			return;
 		current=head;
 		
-		if (current.data.listContact.isEmpty()) {
-			head = head.next;
-		}
-		
 		NodeList<T> prev = head;
 		NodeList<T> curr = head.next;
-		while(curr!=null) {
+		while( curr!=null) {
 			curr.data.listContact.removeContactFromList(contact);
-			if(curr.data.listContact.isEmpty())
-				prev.next = curr.next;	
-			prev = curr;
-			curr = curr.next;
+			if( curr.data.listContact.isEmpty())
+				prev.next =  curr.next;	
+			prev =  curr;
+			curr =  curr.next;
 		}
 		current.data.listContact.removeContactFromList(contact);
+		
+		if (current.data.listContact.isEmpty()) 
+			head = head.next;
 
 	}
 	
@@ -85,8 +84,7 @@ public class EventList<T> {
 			NodeList<T> tmp = head;
 			head = new NodeList<T>(x);
 			head.next = tmp;
-		} 
-		else {
+		} else {
 			while (current.next != null && x.compareTo(current.next.data) > 0)
 				current = current.next; // the name goes to its alphabetical place
 			NodeList<T> tmp = current.next;
@@ -118,9 +116,7 @@ public class EventList<T> {
 		
 		current = head;
 		// Case 1: Remove the head node
-		if (head.Data.getName().equalsIgnoreCase(contact)) {
-			head = head.next;
-		}
+		
 		// Case 2: Remove a node other than the head
 		NodeList<T> prev = head;
 		NodeList<T> curr = head.next;
@@ -128,12 +124,12 @@ public class EventList<T> {
 		while (curr != null) {
 			if (curr.Data.getName().equalsIgnoreCase(contact)) {
 				prev.next = curr.next;
-				
-				
 			}
 			prev = curr;
 			curr = curr.next;
 		}
+		if (head.Data.getName().equalsIgnoreCase(contact)) 
+			head = head.next;
 	}
 	
 	public boolean searchNameInList(Contact_ contact) {
@@ -153,12 +149,12 @@ public class EventList<T> {
 	}
 	
 	public void printContactInList(EventList<T> e) {
-		e.findFirst();
-		while(!e.last()) {
+		current=head;
+		while(current!=null) {
 			System.out.println("Contact name: "+e.current.Data.getName());
-			e.findNext();
+			current=current.next;
 			}
-		System.out.println("Contact name: "+e.current.Data.getName());	
+		
 	}
 	
 	public boolean Conflict(Contact_ contact, String time) {
