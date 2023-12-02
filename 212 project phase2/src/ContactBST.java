@@ -273,30 +273,7 @@ public class ContactBST<T> {
 
     	
     } 
-    /*
-    private void searchFirstNameRec(NodeBST<T> p, String name) {
-        if (p == null) 
-        	return;
-        else {
-            if (p.data.getName().split(" ")[0].equals(name)) {
-                // Display contact details
-            	System.out.println("Contact found!");
-                System.out.println("Name:" +p.data.getName());
-              	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
-              	 System.out.println("Email Address: "+p.data.getEmailAddress());
-              	 System.out.println("Address: "+p.data.getAddress());
-              	 System.out.println("Birthday"+p.data.getBirthday());
-              	 System.out.println("Notes: " +p.data.getNotes());
-            }
-        }
-            // Continue searching in both left and right subtrees
-            searchFirstNameRec(root.left, name);
-            searchFirstNameRec(root.right, name);
-        
-    }
-    public void searchFirstName(String name) {
-        searchFirstNameRec(root, name);
-    } */
+  
     
     
     public void FirstName( String name) {
@@ -328,8 +305,8 @@ public class ContactBST<T> {
         // Continue searching in both subtrees
         found = searchFirstName(node.getLeft(), name) || found;
         found = searchFirstName(node.getRight(), name) || found;
-
-        return found;
+        
+        return true;
     }
 
  }
