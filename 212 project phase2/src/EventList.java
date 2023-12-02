@@ -165,16 +165,19 @@ public class EventList<T>  {
 					return true; // check if contact have conflict or not
 			current = current.next;
 			}
-		return false;
+		return false; // the contact has no conflict
 	}
 
 	public void searchContact(EventList<T> e, String name) {
 		current=head;	
+		boolean exist=false;
 		while(current!=null) {
 			if(current.data.isAppointment()){
-				if(current.data.listContact.head.Data.getName().equalsIgnoreCase(name))
+				if(current.data.listContact.head.Data.getName().equalsIgnoreCase(name)) {
 					System.out.println("Event Title: "+current.data.getEventTitle()+"\nContact name: "+current.data.listContact.head.Data.getName()+"\nEvent date and time (MM/DD/YYYY HH:MM) "+current.data.getDateAndTime()+"\nEvent location: "+current.data.getLocation());
+					exist=true;
 				}
+			}
 			else 
 			{
 				NodeList<Contact_> tmp=current.data.listContact.head;//the list for contact names
@@ -183,24 +186,34 @@ public class EventList<T>  {
 						System.out.println("Event Title: "+current.data.getEventTitle());
 						current.data.listContact.printContactInList(current.data.listContact);
 						System.out.println("Event date and time (MM/DD/YYYY HH:MM) "+current.data.getDateAndTime()+"\nEvent location: "+current.data.getLocation());
-							}
+						exist=true;	
+					}
 					tmp=tmp.next;
 				}
 		
 			}	
 		current=current.next;
 		}
-
+		
+		if(!exist)
+			System.out.println("There is no event or appointement with this contact");
+		
+		
 	}
 	public void serachEvent(EventList<T> e , String title) {
 		current=head;
+		boolean exist=false;
 		while(current!=null) {
 			if(e.current.data.getEventTitle().equalsIgnoreCase(title)) {
 				System.out.println("Event Title: "+current.data.getEventTitle());
 				current.data.listContact.printContactInList(current.data.listContact);
 				System.out.println("Event date and time (MM/DD/YYYY HH:MM) "+current.data.getDateAndTime()+"\nEvent location: "+current.data.getLocation());
+				exist =true;
 			}
 		current=current.next;
+		}
+		if(!exist) {
+			System.out.println("There is no event with this title");
 		}
 	}
 
