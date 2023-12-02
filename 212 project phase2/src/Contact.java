@@ -1,3 +1,4 @@
+
 public class Contact_ implements Comparable<Contact_>{
 	
 	public String name;
@@ -37,10 +38,14 @@ public class Contact_ implements Comparable<Contact_>{
 			return -1; // this means this.name>otherPerson
 		 else
 			 return 1;// this means otherPerson>this.name
-		 
 		 }
-		 }//solve error by adiing this pracit
-		public int compareToEmail(String otherEmail)throws NullPointerException {//bigO(n) this method compare two strings
+	}
+	
+	 
+	
+
+	
+	public int compareToEmail(String otherEmail)throws NullPointerException {//bigO(n) this method compare two strings
 		 return(this.emailAddress.compareTo(otherEmail));// 
 	}
 	 public int compareToAddress(String otheraddress) {  
@@ -51,7 +56,6 @@ public class Contact_ implements Comparable<Contact_>{
 	         
 	            return (this.birthday.compareTo(birthday) ) ;  
 	        }  
-	        
 	
 	//setters and getters
 	public String getName(){
@@ -101,4 +105,6 @@ public class Contact_ implements Comparable<Contact_>{
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+
+	
 }
