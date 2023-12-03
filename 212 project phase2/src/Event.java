@@ -22,7 +22,19 @@ public class Event_ {
 		listContact=new EventList<Contact_>();
 	}
 
-	
+	public int compareTo(Event_ event)throws NullPointerException  {
+		if(this.eventTitle==null || event.eventTitle==null)
+			throw new NullPointerException("Please enter a valid name");
+		 else
+		 {
+		 if(this.eventTitle.equals(event.eventTitle))
+			return 0;// this means this.title==event
+		 else if(this.eventTitle.compareTo(event.eventTitle)<=-1)
+			return -1; // this means this.title>event
+		 else
+			 return 1;// this means this.title<event
+		 }
+	}
 //setters and getters
 	public String getEventTitle() {
 		return eventTitle;
