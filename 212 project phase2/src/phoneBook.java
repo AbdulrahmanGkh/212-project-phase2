@@ -1,4 +1,6 @@
-
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 public class phonebook_ {
 	
@@ -43,10 +45,12 @@ public class phonebook_ {
 	 String birthday;
 	 String notes;
 	 String eventTitle;
-	 String DateAndtime;
+	 Date date;
+	 String time;
 	 String location;
 	 String voidd;
 	 int choice;
+	 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm"); // Define the date format
 	 ContactBST<Contact_> c = new ContactBST<Contact_>();
 	 EventList <Event_> e = new EventList<Event_>();
 	 
@@ -185,15 +189,22 @@ public class phonebook_ {
 			        break;
 			    }
 			    System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");
-			    DateAndtime = input.nextLine();
+			    try {
+	                date = formatter.parse(input.nextLine()); // Parse the date and time input
+	            } catch (ParseException e1) {
+	                System.out.println("Invalid date format. Please enter date and time in MM/DD/YYYY HH:MM format.");
+	                break;
+	            }
+			    time= formatter.format(date); // Convert the Date object back to String if needed
+			    
 			    System.out.println("Enter event location:");
 			    location = input.nextLine();
 			    
 
 			    // Loop through the contactNames array and add each contact to the event
 			    for (String contactName : contactNames) {
-			    	if(c.searchName(contactName)!=null && !e.Conflict(c.searchName(contactName), DateAndtime)) {
-			    		e.scheduleEvent(eventTitle, DateAndtime, location, c.searchName(contactName), false, e);
+			    	if(c.searchName(contactName)!=null && !e.Conflict(c.searchName(contactName),time)) {
+			    		e.scheduleEvent(eventTitle,time, location, c.searchName(contactName), false, e);
 			    	 	System.out.println("Event added successfully!");
 			    	}
 			    	
@@ -217,12 +228,18 @@ public class phonebook_ {
 				System.out.println("Enter contact in this appointment:");
 				name=input.nextLine();
 				System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");
-				DateAndtime=input.nextLine();
+				try {
+	                date = formatter.parse(input.nextLine()); // Parse the date and time input
+	            } catch (ParseException e2) {
+	                System.out.println("Invalid date format. Please enter date and time in MM/DD/YYYY HH:MM format.");
+	                break;
+	            }
+			    time= formatter.format(date); // Convert the Date object back to String if needed
 				System.out.println("Enter event location:");
 				location=input.nextLine();
 				
-				if(c.searchName(name)!=null && !e.Conflict(c.searchName(name), DateAndtime)) {
-				e.scheduleEvent(eventTitle, DateAndtime, location,  c.searchName(name), true, e);
+				if(c.searchName(name)!=null && !e.Conflict(c.searchName(name), time)) {
+				e.scheduleEvent(eventTitle,time, location,  c.searchName(name), true, e);
 				System.out.println("Appointment added successfully!");
 				}
 				else if(c.searchName(name)==null) 
