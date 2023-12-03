@@ -2,7 +2,7 @@ public class ContactBST<T> {
 	 NodeBST<T> root;
 	 NodeBST<T> current;
     
-    /** Creates a new instance of BST */  
+      
     public ContactBST() {  
         root = current = null;  
     }  
@@ -18,21 +18,23 @@ public class ContactBST<T> {
     public Contact_ retrieve () {  
         return current.data;  
     }  
-  
+    // Finds a node with a specified key in the Binary Search Tree
     public boolean findkey(String tkey) {  
     	 NodeBST<T> p=root , q=root;;  
-          
+    	// Check if the BST is currently empty
         if(empty())  
             return false;  
           
-        while(p!=null) {  
+        while(p!=null) {  // Traverse the BST until the key is found or the end is reached
             q=p;  
             if(p.key.equalsIgnoreCase(tkey)) {  
                 current=p;  
                 return true;  
             }  
-            else if(p.key.compareTo(tkey) < 0)  //check
-                p=p.left;  
+         // If the key is smaller, move to the left subtree
+            else if(p.key.compareTo(tkey) < 0)  
+                p=p.left; 
+         // If the key is greater, move to the right subtree
             else  
                 p=p.right;  
         }  
@@ -40,7 +42,7 @@ public class ContactBST<T> {
         return false;  
     }  
   
-    
+    // Inserts a new contact into the Binary Search Tree
     public boolean insert(String name, String phoneNumber, String emailAddress, String address, String birthday, String notes) {
         Contact_ c = new Contact_(name, phoneNumber, emailAddress, address, birthday, notes);
         NodeBST<T> newNode = new NodeBST<T>(name, c);
@@ -49,19 +51,19 @@ public class ContactBST<T> {
             root = newNode;
             return true;
         }
-     // Initialize parent and current pointers for traversing the tree
+     // parent and current pointers for traversing the tree
         NodeBST<T> parent = null;
         NodeBST<T> current = root;
 
        
         while (current != null) {
             parent = current;
-            if (name.compareTo(current.key) < 0) // Compare the new contact's name with the current node's key
-                current = current.left;  // If name is smaller, move to the left subtree
-            else if (name.compareTo(current.key) > 0)  // If name is greater, move to the right subtree
+            if (name.compareTo(current.key) < 0) // Compare the new contacts name with the current nodes key
+                current = current.left;  // If name is smaller move to the left subtree
+            else if (name.compareTo(current.key) > 0)  // If name is greater move to the right subtree
                 current = current.right;
              else 
-                return false; // If a duplicate key is found, return false as insertion is not allowed
+                return false; // If a duplicate key is found return false as insertion is not allowed
         }
         if (name.compareTo(parent.key) < 0) {
             parent.left = newNode;
@@ -71,7 +73,7 @@ public class ContactBST<T> {
 
         return true;
     }
-  
+ // Removes a node with a specified key from the Binary Search Tree
     public boolean removeKey(String key, EventList<Event_> e) {
     	
     	Boolean removed = false;
@@ -84,7 +86,8 @@ public class ContactBST<T> {
 
     	
     }
-    public NodeBST<T> remove(String key , NodeBST<T> p, boolean flag){
+ 
+    private NodeBST<T> remove(String key , NodeBST<T> p, boolean flag){
     	
     	NodeBST<T> q, child = null;
 		if(p == null)
@@ -112,6 +115,7 @@ public class ContactBST<T> {
 		return p;
     	
     }
+ // Finds the node with the minimum key in a given subtree
     public NodeBST<T> findMin( NodeBST<T> p){
     		if(p == null)
     			return null;
@@ -122,6 +126,7 @@ public class ContactBST<T> {
     		
     		return p;
     }
+ // Returns the root of the Binary Search Tree
     public NodeBST<T> findRoot(ContactBST<T> B){
     	
     	NodeBST<T> p = B.root;
@@ -131,7 +136,7 @@ public class ContactBST<T> {
     public Contact_ searchName(String key) {
     	
     	NodeBST<T> p = root,q = root;
-		
+    	// Check if the BST is currently empty
 		if(empty())
 			return null;
 		
@@ -180,9 +185,11 @@ public class ContactBST<T> {
     	SearchAddress_rec(root, address);
     }
     private void SearchAddress_rec (NodeBST<T> p , String address) {
+    	 boolean exist=false;// indicator to know if we find contact or not
     	 if (p == null)  
-             return  ;  
+             return  ; 
          else if (((Contact_)p.data).compareToAddress(address) == 0)  {
+        	exist=true; 
          System.out.println("Contact found!");
          System.out.println("Name:" +p.data.getName());
     	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
@@ -192,16 +199,20 @@ public class ContactBST<T> {
     	 System.out.println("Notes: " +p.data.getNotes());
          }
          SearchAddress_rec(p.left , address);  
-         SearchAddress_rec(p.right, address);  
+         SearchAddress_rec(p.right, address); 
+         if(!exist)
+        	 System.out.println("There is no contact with the same address");
     }
     public void searchEmail(String email) {
     	SearchEmail_rec(root,email);
     }
     private void SearchEmail_rec(NodeBST<T> p , String email) {
+    	boolean exist=false;// indicator to know if we find contact or not
     	if (p == null)  
             return;  
 
         else if (((Contact_)p.data).compareToEmail(email) == 0) {
+        	exist=true; 
          System.out.println("Contact found!");
          System.out.println("Name:" +p.data.getName());
        	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
@@ -213,26 +224,32 @@ public class ContactBST<T> {
 
         SearchEmail_rec(p.left , email);  
         SearchEmail_rec(p.right, email);  
+        if(!exist)
+       	 System.out.println("There is no contact with the same address");
     }
     public void serachBirthday(String birthday) {
     	SearchBirthday_rec(root, birthday);
     }
     private void SearchBirthday_rec(NodeBST<T> p , String birthday) {
+    	boolean exist=false;// indicator to know if we find contact or not
     	 if (p == null)  
              return ;  
          else if (((Contact_)p.data).compareToBirthday(birthday) == 0)  
          {
+        	 exist=true; 
              System.out.println("Contact found!");
              System.out.println("Name:" +p.data.getName());
            	 System.out.println("Phone Number: " + p.data.getPhoneNumber());
            	 System.out.println("Email Address: "+p.data.getEmailAddress());
            	 System.out.println("Address: "+p.data.getAddress());
-           	 System.out.println("Birthday"+p.data.getBirthday());
+           	 System.out.println("Birthday:"+p.data.getBirthday());
            	 System.out.println("Notes: " +p.data.getNotes());
                 } 
 
          SearchBirthday_rec(p.left , birthday);  
-         SearchBirthday_rec(p.right, birthday);  
+         SearchBirthday_rec(p.right, birthday); 
+         if(!exist)
+        	 System.out.println("There is no contact with the same address");
 
     }
     public void printInOrder(NodeBST<T>root ) {
@@ -241,7 +258,7 @@ public class ContactBST<T> {
             // Traverse the left subtree
             printInOrder(root.left);
 
-            // Print the current node's value
+           
             System.out.println(root.data.getName() + " ");
 
             // Traverse the right subtree
