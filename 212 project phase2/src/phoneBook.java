@@ -1,9 +1,24 @@
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 public class phonebook_ {
-	
+	private static int getSafeIntegerInput(Scanner scanner) {
+	    final String ANSI_RED = "\u001B[31m";
+	    final String ANSI_RESET = "\u001B[0m";
+
+	    while (true) {
+	        try {
+	            return Integer.parseInt(scanner.nextLine());
+	        } catch (NumberFormatException e) {
+	            System.out.println(ANSI_RED + "Invalid input. Please enter a number!" + ANSI_RESET);
+	            System.out.println("\r");
+	            ProgramMenu();
+	        }
+	    }
+	}
 
 	public static void ProgramMenu() { 
 	System.out.println("Welcome to the Linked Tree Phoonebook!");
@@ -20,11 +35,11 @@ public class phonebook_ {
 	}
 	public static void SearchContactMenu() {
 		System.out.println("Enter Search criteria: ");
-		System.out.println("Name");
-		System.out.println("Phone Number");
-		System.out.println("Email Address");
-		System.out.println("Address");
-		System.out.println("Birthday");
+		System.out.println("1.Name");
+		System.out.println("2.Phone Number");
+		System.out.println("3.Email Address");
+		System.out.println("4.Address");
+		System.out.println("5.Birthday");
 	}
 	
 	public static void PrintEvent() {
@@ -50,29 +65,29 @@ public class phonebook_ {
 	 String location;
 	 String voidd;
 	 int choice;
-	 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm"); // Define the date format
 	 ContactBST<Contact_> c = new ContactBST<Contact_>();
 	 EventList <Event_> e = new EventList<Event_>();
+	 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm"); // Define the date format
 	 
 	 do {
 		 ProgramMenu(); //this calls the menu we created above
 		 
-		choice = input.nextInt();
+		choice = getSafeIntegerInput(input);
 		switch (choice){
 		
 		case 1:
-			voidd=input.nextLine();
-			System.out.println("Enter the contact's name:");
+			
+			System.out.print("Enter the contact's name:");
 			 name=input.nextLine();
-			System.out.println("Enter the contact's phone number:");
+			System.out.print("Enter the contact's phone number:");
 			 phoneNumber=input.nextLine();
-			System.out.println("Enter the contact's email address:");
+			System.out.print("Enter the contact's email address:");
 			 emailAddress=input.nextLine();
-			System.out.println("Enter the contact's address:");
+			System.out.print("Enter the contact's address:");
 			 address=input.nextLine();
-			System.out.println("Enter the contact's birthday:");
+			System.out.print("Enter the contact's birthday:");
 			 birthday=input.nextLine();
-			System.out.println("Enter any notes for the contact:");
+			System.out.print("Enter any notes for the contact:");
 			 notes=input.nextLine();
 			if(c.searchName(name)!=null || c.serachPhoneNumber(c.findRoot(c),phoneNumber) !=null) { 
 				System.out.println("Contact is found...can not add contact that has the same name or number");
@@ -90,11 +105,11 @@ public class phonebook_ {
 			
 			SearchContactMenu();
 			int choice2;
-			choice2=input.nextInt();
+			choice2=getSafeIntegerInput(input);
 			switch(choice2) {
 			case 1:
-				voidd=input.nextLine();
-				System.out.println("Enter the contact's name:");
+				
+				System.out.print("Enter the contact's name:");
 				name=input.nextLine();
 				Contact_ contact1 = c.searchName(name);
 				if(contact1!=null) {
@@ -113,8 +128,8 @@ public class phonebook_ {
 				 break;
 				}
 			case 2:
-				voidd=input.nextLine();
-				System.out.println("Enter Phone number:");
+				
+				System.out.print("Enter Phone number:");
 				phoneNumber=input.nextLine();
 				Contact_ contact2 = c.serachPhoneNumber(c.findRoot(c),phoneNumber);
 				if(contact2!=null) {
@@ -131,22 +146,22 @@ public class phonebook_ {
 				System.out.println("\r");
 				break;
 			case 3:
-				voidd=input.nextLine();
-				System.out.println("Enter Email Address");
+				
+				System.out.print("Enter Email Address");
 				emailAddress=input.nextLine();
 				c.searchEmail(emailAddress);
 				System.out.println("\r");
 				break;
 			case 4:
-				voidd=input.nextLine();
-				System.out.println("Enter Address");
+				
+				System.out.print("Enter Address");
 				address=input.nextLine();
 				c.searchAddress(address);
 				System.out.println("\r");
 				break;
 			case 5:
-				voidd=input.nextLine();
-				System.out.println("Enter birthday");
+			
+				System.out.print("Enter birthday");
 				birthday=input.nextLine();
 				c.serachBirthday(birthday);
 				System.out.println("\r");
@@ -156,8 +171,8 @@ public class phonebook_ {
 			break;
 			
 		case 3: 
-			voidd=input.nextLine();
-		System.out.println("Enter contact name that you want to delete");
+		
+		System.out.print("Enter contact name that you want to delete");
 		name=input.nextLine();
 		if(c.searchName(name)!=null) {
 			c.removeKey(name,e);
@@ -169,18 +184,18 @@ public class phonebook_ {
 		break;
 	
 		case 4:
-			voidd=input.nextLine();
+			
 			System.out.println("Enter type:");
 			System.out.println("1.event ");
 			System.out.println("2.appointment");
 			System.out.println("NOTE event is for 2 or more contacts!!!!");
-			int choice3=input.nextInt();
+			int choice3=getSafeIntegerInput(input);
 			switch(choice3) {
 			case 1:
-				voidd=input.nextLine();
-			    System.out.println("Enter event title:");
+				
+			    System.out.print("Enter event title:");
 			    eventTitle = input.nextLine();
-			    System.out.println("Enter names of contacts in this event (comma-separated, must be two or more):");
+			    System.out.print("Enter names of contacts in this event (comma-separated, must be two or more):");
 			     name = input.nextLine();
 			    String[] contactNames = name.split(","); // Split input by commas and optional whitespaces
 
@@ -191,20 +206,19 @@ public class phonebook_ {
 			    System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");
 			    try {
 	                date = formatter.parse(input.nextLine()); // Parse the date and time input
-	            } catch (ParseException e1) {
+	            } catch (ParseException e2) {
 	                System.out.println("Invalid date format. Please enter date and time in MM/DD/YYYY HH:MM format.");
 	                break;
 	            }
 			    time= formatter.format(date); // Convert the Date object back to String if needed
-			    
-			    System.out.println("Enter event location:");
+			    System.out.print("Enter event location:");
 			    location = input.nextLine();
 			    
 
 			    // Loop through the contactNames array and add each contact to the event
 			    for (String contactName : contactNames) {
-			    	if(c.searchName(contactName)!=null && !e.Conflict(c.searchName(contactName),time)) {
-			    		e.scheduleEvent(eventTitle,time, location, c.searchName(contactName), false, e);
+			    	if(c.searchName(contactName)!=null && !e.Conflict(c.searchName(contactName), time)) {
+			    		e.scheduleEvent(eventTitle, time, location, c.searchName(contactName), false, e);
 			    	 	System.out.println("Event added successfully!");
 			    	}
 			    	
@@ -222,24 +236,24 @@ public class phonebook_ {
 
 				
 			case 2:
-				voidd=input.nextLine();
-				System.out.println("Enter appointment");
+			
+				System.out.print("Enter appointment");
 				eventTitle=input.nextLine();
-				System.out.println("Enter contact in this appointment:");
+				System.out.print("Enter contact in this appointment:");
 				name=input.nextLine();
 				System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");
-				try {
+			    try {
 	                date = formatter.parse(input.nextLine()); // Parse the date and time input
-	            } catch (ParseException e2) {
+	            } catch (ParseException e1) {
 	                System.out.println("Invalid date format. Please enter date and time in MM/DD/YYYY HH:MM format.");
 	                break;
 	            }
 			    time= formatter.format(date); // Convert the Date object back to String if needed
-				System.out.println("Enter event location:");
+				System.out.print("Enter event location:");
 				location=input.nextLine();
 				
 				if(c.searchName(name)!=null && !e.Conflict(c.searchName(name), time)) {
-				e.scheduleEvent(eventTitle,time, location,  c.searchName(name), true, e);
+				e.scheduleEvent(eventTitle, time, location,  c.searchName(name), true, e);
 				System.out.println("Appointment added successfully!");
 				}
 				else if(c.searchName(name)==null) 
@@ -256,10 +270,11 @@ public class phonebook_ {
 			
 			PrintEvent();
 			
-			int choice4=input.nextInt();
+			int choice4=getSafeIntegerInput(input);
+			
 			if(choice4==1) {
-				voidd=input.nextLine();
-				System.out.println("Enter contact name:");
+				
+				System.out.print("Enter contact name:");
 				 name=input.nextLine();
 				 if(c.searchName(name)!=null) {
 					 e.searchContact(e, name);
@@ -271,8 +286,8 @@ public class phonebook_ {
 			}
 			
 			else if(choice4==2) {
-				voidd=input.nextLine();
-				System.out.println("Enter the event title");
+				
+				System.out.print("Enter the event title");
 				eventTitle=input.nextLine();
 				e.serachEvent(e,eventTitle);
 				System.out.println("\r");
@@ -284,8 +299,8 @@ public class phonebook_ {
 			break;
 			
 		case 6:
-			voidd=input.nextLine();
-			System.out.println("Enter the first name:");
+			
+			System.out.print("Enter the first name:");
 			name=input.nextLine();
 			c.FirstName(name);
 			System.out.println("\r");
@@ -306,7 +321,5 @@ public class phonebook_ {
 		}
 		
 	}while(choice !=8 );
-	
-	}
+	 }
 }
-
