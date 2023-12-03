@@ -1,20 +1,22 @@
-
+import java.util.Date;
 public class Event_  implements Comparable<Event_>{
 	public String eventTitle;
-	public String DateAndTime;
+	public String dateAndTime;
+	public String time;
 	public String location;
 	public boolean appointment;
 	public EventList<Contact_> listContact;
 
 	public Event_() {
 		this.eventTitle=null;
-		this.DateAndTime=null;
+		this.dateAndTime=null;
+		this.time=null;
 		this.location=null;
 	}
 	
-	public Event_(String eventTitle, String DateAndTime, String location,boolean appointment) {
+	public Event_(String eventTitle,String dateAndTime,String location,boolean appointment) {
 		this.eventTitle = eventTitle;
-		this.DateAndTime=DateAndTime;
+		this.dateAndTime=dateAndTime;
 		this.location = location;
 		this.appointment=appointment;
 		listContact=new EventList<Contact_>();
@@ -42,11 +44,15 @@ public class Event_  implements Comparable<Event_>{
 	}
 	
 	public String getDateAndTime() {
-		return DateAndTime;
+		return dateAndTime;
 	}
 
-	public void setDateAndTime(String dateAndTime) {
-		DateAndTime = dateAndTime;
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getLocation() {
