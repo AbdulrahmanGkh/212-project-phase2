@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 public class phonebook_ {
 	
@@ -51,6 +52,7 @@ public class phonebook_ {
 	 
 	 do {
 		 ProgramMenu(); //this calls the menu we created above
+		 
 		choice = input.nextInt();
 		switch (choice){
 		
@@ -153,8 +155,10 @@ public class phonebook_ {
 			voidd=input.nextLine();
 		System.out.println("Enter contact name that you want to delete");
 		name=input.nextLine();
-		if(c.searchName(name)!=null)
+		if(c.searchName(name)!=null) {
 			c.removeKey(name,e);
+			System.out.println("Contact deleted");
+			}
 		else 
 			System.out.println("There is no contact to delete");
 		System.out.println("\r");
@@ -188,14 +192,20 @@ public class phonebook_ {
 
 			    // Loop through the contactNames array and add each contact to the event
 			    for (String contactName : contactNames) {
-			    	if(c.searchName(contactName)!=null)
-			        e.scheduleEvent(eventTitle, DateAndtime, location, c.searchName(contactName), false, e);
-			    	else {
-			    		System.out.println("There is no contact with the same name to add an event");
-			    		break;
-			    		}
+			    	if(c.searchName(contactName)!=null && !e.Conflict(c.searchName(contactName), DateAndtime)) {
+			    		e.scheduleEvent(eventTitle, DateAndtime, location, c.searchName(contactName), false, e);
+			    	 	System.out.println("Event added successfully!");
+			    	}
+			    	
+			    	else if (c.searchName(contactName)==null) 
+			    		System.out.println("There is no contact with the same name to add an event ");
+			    		
+			    	
+			    	else 
+			    		System.out.println("There is a conflict");
+			    		
 			    }
-			    System.out.println("Event added successfully!");
+			   
 			    System.out.println("\r");
 			    break;
 
@@ -206,19 +216,25 @@ public class phonebook_ {
 				eventTitle=input.nextLine();
 				System.out.println("Enter contact in this appointment:");
 				name=input.nextLine();
-				if(c.searchName(name)==null) {
-					System.out.println("There is no contacts with the same name to add an appointment");
-					break;
-				}
 				System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");
 				DateAndtime=input.nextLine();
 				System.out.println("Enter event location:");
 				location=input.nextLine();
-				System.out.println("Event added successfully!");
+				
+				if(c.searchName(name)!=null && !e.Conflict(c.searchName(name), DateAndtime)) {
 				e.scheduleEvent(eventTitle, DateAndtime, location,  c.searchName(name), true, e);
-				break;
+				System.out.println("Appointment added successfully!");
 				}
+				else if(c.searchName(name)==null) 
+					System.out.println("There is no contact with the same name to add an appointment");
+				else
+					System.out.println("There is a conflict");
+					
+			}
+			System.out.println("\r");
 			break;
+				
+			
 		case 5:
 			
 			PrintEvent();
@@ -255,6 +271,7 @@ public class phonebook_ {
 			System.out.println("Enter the first name:");
 			name=input.nextLine();
 			c.FirstName(name);
+			System.out.println("\r");
 			break;
 			
 		case 7:
@@ -268,11 +285,11 @@ public class phonebook_ {
 			break;
 			default: 
 				System.out.println("Invaled choice,please try to Enter number from 1-9");
+				System.out.println("\r");
 		}
 		
 	}while(choice !=8 );
-	 
-	 
-	 	
+	
 	}
 }
+
