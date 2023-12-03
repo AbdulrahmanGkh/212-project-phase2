@@ -1,4 +1,4 @@
-import java.util.Date;
+
 public class EventList<T>  {
 	public NodeList<T> head;
 	public NodeList<T> current;
@@ -38,6 +38,7 @@ public class EventList<T>  {
 	
 	
 	public void removeEvent(String contact) {
+		// Check if the linked list is empty
 		if(isEmpty())
 			return;
 		current=head;
@@ -45,13 +46,14 @@ public class EventList<T>  {
 		NodeList<T> prev = head;
 		NodeList<T> curr = head.next;
 		while( curr!=null) {
-			curr.data.listContact.removeContactFromList(contact);
-			if( curr.data.listContact.isEmpty())
+			curr.data.listContact.removeContactFromList(contact); // Remove the contact from the current event's contact list
+			if( curr.data.listContact.isEmpty())         // If  event becomes empty remove it from the list
 				prev.next =  curr.next;	
 			prev =  curr;
 			curr =  curr.next;
 		}
-		current.data.listContact.removeContactFromList(contact);
+		current.data.listContact.removeContactFromList(contact);     // Remove the contact from the contact list of the current event
+
 		
 		if (current.data.listContact.isEmpty()) 
 			head = head.next;
@@ -59,7 +61,7 @@ public class EventList<T>  {
 	}
 	
 	public void scheduleEvent(String title,String dateAndTime, String location, Contact_ contact,Boolean appointment,EventList<Event_> e) {
-		
+		// Check if the linked list is empty
 		if (isEmpty()) {
 			Event_ x = new Event_(title, dateAndTime, location,appointment);
 			x.listContact.insertContactInList(contact);
@@ -67,8 +69,9 @@ public class EventList<T>  {
 			return;
 		}
 		e.findFirst();
-		if(appointment);
+		if(appointment); // If the event is an appointment, add the contact to the first event in the list
 		else {
+			// If the event is not an appointment, search for an existing event with the same title
 			while(current!=null) {
 				if(current.data.getEventTitle().equalsIgnoreCase(title)&&current.data.isAppointment()==false) {
 					current.data.listContact.insertContactInList(contact);
@@ -84,7 +87,7 @@ public class EventList<T>  {
 			NodeList<T> tmp = head;
 			head = new NodeList<T>(x);
 			head.next = tmp;
-		} else {
+		} else {// Insert the new event in alphabetical order
 			while (current.next != null && x.compareTo(current.next.data) > 0)
 				current = current.next; // the name goes to its alphabetical place
 			NodeList<T> tmp = current.next;
