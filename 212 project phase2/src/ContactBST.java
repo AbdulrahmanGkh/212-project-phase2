@@ -39,30 +39,7 @@ public class ContactBST<T> {
         current=q;  
         return false;  
     }  
-  /*  public boolean insert(String name , String phoneNumber,String emailAddress,String address,String birthday,String notes) {  
-    	NodeBST<T> p,q=current; 
-    	Contact_ c = new Contact_(name,phoneNumber,emailAddress,address,birthday,notes); // this method take a contact to store it in the list
   
-        if(findkey(name)) {  // findKey(name,phonenumber)   check this
-            current=q;
-            return false;  
-        }  
-        p=new NodeBST<T>(name,c);  
-          
-        if(empty()) {  
-        	root=current=p; 
-        	System.out.println("Added succefully");
-        	return true;  
-        }	else 	{  
-        	if(name.compareTo(current.key) < 0)  
-        		current.left=p;  
-        	else	  
-        		current.right=p;  
-        }  
-        current=p; 
-        System.out.println("Added succefully");
-        return true;  
-    } */
     
     public boolean insert(String name, String phoneNumber, String emailAddress, String address, String birthday, String notes) {
         Contact_ c = new Contact_(name, phoneNumber, emailAddress, address, birthday, notes);
@@ -243,7 +220,7 @@ public class ContactBST<T> {
     private void SearchBirthday_rec(NodeBST<T> p , String birthday) {
     	 if (p == null)  
              return ;  
-         else    if (((Contact_)p.data).compareToBirthday(birthday) == 0)  
+         else if (((Contact_)p.data).compareToBirthday(birthday) == 0)  
          {
              System.out.println("Contact found!");
              System.out.println("Name:" +p.data.getName());
