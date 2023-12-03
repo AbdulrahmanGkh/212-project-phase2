@@ -1,4 +1,4 @@
-
+import java.util.Date;
 public class EventList<T>  {
 	public NodeList<T> head;
 	public NodeList<T> current;
@@ -58,10 +58,10 @@ public class EventList<T>  {
 
 	}
 	
-	public void scheduleEvent(String title, String dateandtime, String location, Contact_ contact,Boolean appointment,EventList<Event_> e) {
+	public void scheduleEvent(String title,String dateAndTime, String location, Contact_ contact,Boolean appointment,EventList<Event_> e) {
 		
 		if (isEmpty()) {
-			Event_ x = new Event_(title, dateandtime, location,appointment);
+			Event_ x = new Event_(title, dateAndTime, location,appointment);
 			x.listContact.insertContactInList(contact);
 			current = head =new NodeList<T>(x);
 			return;
@@ -77,7 +77,7 @@ public class EventList<T>  {
 				current=current.next;
 				}
 			}
-		Event_ x = new Event_(title, dateandtime, location,appointment);
+		Event_ x = new Event_(title, dateAndTime, location,appointment);
 		x.listContact.insertContactInList(contact);
 		e.findFirst();
 		if (x.compareTo(head.data) < 0) { // the name is first alphabetically
@@ -157,10 +157,10 @@ public class EventList<T>  {
 		
 	}
 	
-	public boolean Conflict(Contact_ contact, String time) {
+	public boolean Conflict(Contact_ contact, String dateAndTime) {
 		current = head;
 		while (current != null) {
-			if (current.data.getDateAndTime().equalsIgnoreCase(time) ) 
+			if (current.data.getDateAndTime().equalsIgnoreCase(dateAndTime)) 
 				if(current.data.listContact.searchNameInList(contact))
 					return true; // check if contact have conflict or not
 			current = current.next;
