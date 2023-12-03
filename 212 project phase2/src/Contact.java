@@ -27,18 +27,8 @@ public class Contact_ implements Comparable<Contact_>{
 		this.notes = notes;
 		this.emailAddress=emailAddress;
 	}
-	public int compareTo(Contact_ otherPerson)throws NullPointerException {//bigO(n) this method compare two strings
-		 if(this.name==null || otherPerson.name==null)
-			throw new NullPointerException("Please enter a valid name");
-		 else
-		 {
-		 if(this.name.equals(otherPerson.name))
-			return 0;// this means name==otherPerson
-		 else if(this.name.compareTo(otherPerson.name)<=-1)
-			return -1; // this means this.name>otherPerson
-		 else
-			 return 1;// this means otherPerson>this.name
-		 }
+	public int compareTo(Contact_ other) { //s1.compareTo(s2) if s1 > s2, it returns positive number,if s1 < s2, it returns negative number, if s1 == s2, it returns 0
+        return this.name.compareToIgnoreCase(other.name);
 	}
 	
 	 
@@ -53,7 +43,6 @@ public class Contact_ implements Comparable<Contact_>{
 	            return (this.address.compareToIgnoreCase(otheraddress));  
 	        }  
 	 public int compareToBirthday(String otherbirthday) {  
-	         
 	            return (this.birthday.compareTo(birthday) ) ;  
 	        }  
 	
