@@ -12,8 +12,7 @@ public class phonebook_ {
 	System.out.println("5.Print event details");
 	System.out.println("6.Print contact by first name");
 	System.out.println("7.Print all events alphabetically");
-	System.out.println("8.Print Contact that share an event");
-	System.out.println("9.Exit");
+	System.out.println("8.Exit");
 	System.out.println("Enter your choice: ");
 	}
 	public static void SearchContactMenu() {
@@ -185,15 +184,19 @@ public class phonebook_ {
 			    DateAndtime = input.nextLine();
 			    System.out.println("Enter event location:");
 			    location = input.nextLine();
-			    System.out.println("Event added successfully!");
+			    
 
 			    // Loop through the contactNames array and add each contact to the event
 			    for (String contactName : contactNames) {
 			    	if(c.searchName(contactName)!=null)
 			        e.scheduleEvent(eventTitle, DateAndtime, location, c.searchName(contactName), false, e);
-			    	else
-			    		System.out.println(c.searchName(contactName).getName() + "is not a contact");
+			    	else {
+			    		System.out.println("There is no contact with the same name to add an event");
+			    		break;
+			    		}
 			    }
+			    System.out.println("Event added successfully!");
+			    System.out.println("\r");
 			    break;
 
 				
@@ -203,6 +206,10 @@ public class phonebook_ {
 				eventTitle=input.nextLine();
 				System.out.println("Enter contact in this appointment:");
 				name=input.nextLine();
+				if(c.searchName(name)==null) {
+					System.out.println("There is no contacts with the same name to add an appointment");
+					break;
+				}
 				System.out.println("Enter event date and time (MM/DD/YYYY HH:MM):");
 				DateAndtime=input.nextLine();
 				System.out.println("Enter event location:");
@@ -211,7 +218,7 @@ public class phonebook_ {
 				e.scheduleEvent(eventTitle, DateAndtime, location,  c.searchName(name), true, e);
 				break;
 				}
-		
+			break;
 		case 5:
 			
 			PrintEvent();
@@ -266,128 +273,6 @@ public class phonebook_ {
 	}while(choice !=8 );
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	/* c.insert(name, "4545", "g", "11", "22", "nulll");
-	 c.insert("al d", "4", "g", "11", "22", "nulll");
-	 c.insert("al b", "46", "g", "11", "22", "nulll");
-	 c.insert("al a", "47", "g", "11", "22", "nulll");
-	 c.insert("al c", "454", "g", "11", "22", "nulll");
-	// c.insert("feras bhsdffjhs", "454", "g", "11", "22", "nulll");
-	
-	 //c.printInOrder(c.findRoot(c));
-	//c.removeKey("feras", e);
-	//c.FirstName("al");
-	 //c.serachBirthday("22");
-	 e.scheduleEvent("dinner", "2", "b", c.searchName("al a"), false, e);
-	 e.scheduleEvent("dinner", "2", "b", c.searchName("al d"), false, e);
-	 e.scheduleEvent("breakfast", "3", "d", c.searchName("al d"), true, e);
-	
-	 //e.printAlphabitically();
-	
-	// e.serachEvent(e, "dinner");
-	c.removeKey("al a", e);
-	e.serachEvent(e, "dinner");
-	e.searchContact(e, "al d"); */
-	 
-	
-		
-		
+	 	
 	}
 }
