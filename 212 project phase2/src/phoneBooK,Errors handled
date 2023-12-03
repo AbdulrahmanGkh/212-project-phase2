@@ -3,15 +3,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class phonebook_ {
 	private static int getSafeIntegerInput(Scanner scanner) {
+	    final String ANSI_RED = "\u001B[31m";
+	    final String ANSI_RESET = "\u001B[0m";
+
 	    while (true) {
 	        try {
 	            return Integer.parseInt(scanner.nextLine());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number.");
+	            System.out.println(ANSI_RED + "Invalid input. Please enter a number!" + ANSI_RESET);
+	            System.out.println("\r");
+	            ProgramMenu();
 	        }
 	    }
 	}
-	
 
 	public static void ProgramMenu() { 
 	System.out.println("Welcome to the Linked Tree Phoonebook!");
@@ -28,11 +32,11 @@ public class phonebook_ {
 	}
 	public static void SearchContactMenu() {
 		System.out.println("Enter Search criteria: ");
-		System.out.println("1-Name");
-		System.out.println("2-Phone Number");
-		System.out.println("3-Email Address");
-		System.out.println("4-Address");
-		System.out.println("5-Birthday");
+		System.out.println("1.Name");
+		System.out.println("2.Phone Number");
+		System.out.println("3.Email Address");
+		System.out.println("4.Address");
+		System.out.println("5.Birthday");
 	}
 	
 	public static void PrintEvent() {
@@ -277,7 +281,7 @@ public class phonebook_ {
 			break;
 			
 		case 6:
-			voidd=input.nextLine();
+			//voidd=input.nextLine();
 			System.out.println("Enter the first name:");
 			name=input.nextLine();
 			c.FirstName(name);
